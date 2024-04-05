@@ -50,5 +50,6 @@ variable "environment" {
 
 variable "domainadmin_password" {
   type        = string
+  sensitive   = true
   description = "The password assigned to the domain admin fct_domainadmin@domain"
 }

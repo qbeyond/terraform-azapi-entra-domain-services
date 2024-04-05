@@ -1,10 +1,10 @@
 # Module
-[![GitHub tag](https://img.shields.io/github/tag/qbeyond/terraform-module-template.svg)](https://registry.terraform.io/modules/qbeyond/terraform-module-template/provider/latest)
-[![License](https://img.shields.io/github/license/qbeyond/terraform-module-template.svg)](https://github.com/qbeyond/terraform-module-template/blob/main/LICENSE)
+[![GitHub tag](https://img.shields.io/github/tag/qbeyond/terraform-azurerm-entra-domain-services.svg)](https://registry.terraform.io/modules/qbeyond/entra-domain-services/azurerm/latest)
+[![License](https://img.shields.io/github/license/qbeyond/terraform-azurerm-entra-domain-services.svg)](https://github.com/qbeyond/terraform-azurerm-entra-domain-services/blob/main/LICENSE)
 
 ----
 
-This is a template module. It just showcases how a module should look. This would be a short description of the module.
+Module to deploy entra domain services (former Azure Active Directory Domain Services) and needed resources
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage

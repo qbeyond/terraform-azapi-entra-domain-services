@@ -11,24 +11,10 @@ Module to deploy entra domain services (former Azure Active Directory Domain Ser
 
 It's very easy to use!
 ```hcl
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 3.49.0"
-    }
-    azapi = {
-      source = "Azure/azapi"
-    }
-  }
-}
 provider "azurerm" {
   features {}
 
   skip_provider_registration = true
-}
-
-provider "azapi" {
 }
 
 resource "azurerm_resource_group" "deploy" {
@@ -110,6 +96,7 @@ module "entra_domain_services" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >= 2.48.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.49.0 |
 
 ## Inputs
 

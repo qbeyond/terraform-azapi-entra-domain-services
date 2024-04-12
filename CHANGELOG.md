@@ -10,7 +10,9 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ### Added
  
-- Initial release (deploys admin group and user in EID as well as EDS)
+- Deploy ADmin Group
+- Deploy Admin User as member of Admin Group
+- Deploy Entra Domain Services using `azapi`, because the respurce of `azurerm` is missing features
  
 ### Changed
  

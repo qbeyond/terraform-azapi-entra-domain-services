@@ -21,6 +21,20 @@ resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }
 
+check "nsg_association" {
+  data "azurerm_subnet" "eds" {
+    name                 = split("/", var.subnet.id)[10]
+    virtual_network_name = split("/", var.subnet.id)[8]
+    resource_group_name  = split("/", var.subnet.id)[4]
+  }
+
+  assert {
+    condition     = data.azurerm_subnet.eds.network_security_group_id == var.network_security_group.id
+    error_message = "The provided subnet is not associated with the provided network security group."
+  }
+}
+
+// NSG for Microsoft Support access without it EDS complains
 resource "azurerm_network_security_rule" "AllowRD" {
   name                        = "AllowRD"
   priority                    = 201
@@ -35,6 +49,7 @@ resource "azurerm_network_security_rule" "AllowRD" {
   network_security_group_name = var.network_security_group.name
 }
 
+// NSG for Microsoft Support access. Without it EDS complains.
 resource "azurerm_network_security_rule" "AllowPSRemoting" {
   name                        = "AllowPSRemoting"
   priority                    = 301
@@ -87,4 +102,36 @@ resource "azapi_resource" "eds" {
       syncScope = var.sync_scope
     }
   })
+}
+
+
+check "edc_security_configuration" {
+  assert {
+    condition     = var.security_settings.channelBinding == true
+    error_message = "LDAP signing should be enabled."
+  }
+  assert {
+    condition     = var.security_settings.kerberosArmoring == true
+    error_message = "Kerberos armoring should be enabled."
+  }
+  assert {
+    condition     = var.security_settings.kerberosRc4Encryption == false
+    error_message = "Kerberos RC4 encryption is old and should be disabled for EDS."
+  }
+  assert {
+    condition     = var.security_settings.ldapSigning == true
+    error_message = "LDAP signing should be enabled."
+  }
+  assert {
+    condition     = var.security_settings.ntlmV1 == false
+    error_message = "NTLMv1 is old and should be disabled."
+  }
+  assert {
+    condition     = var.security_settings.tlsV1 == false
+    error_message = "TLSv1 is old and should be disabled."
+  }
+  assert {
+    condition     = local.ldaps_settings.ldaps == "enabled"
+    error_message = "LDAPS should be enabled."
+  }
 }

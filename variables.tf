@@ -8,11 +8,19 @@ variable "subnet" {
 
 variable "network_security_group" {
   type = object({
+    id                  = string
     name                = string
     resource_group_name = string
+    security_rule = optional(list(object({
+      name = string
+    })), [])
   })
   nullable    = false
-  description = "The variable takes the network security group as input and takes the name and the resource group name for further configuration."
+  description = "The nsg associated to the provided subnet. The nsg must not contain any rules defined inline in the nsg resource block."
+  validation {
+    condition     = length(var.network_security_group.security_rule) == 0
+    error_message = "This module deploys nsg rules. Therefore the provided NSG can't contain any `security_rule` blocks. Use `azurerm_network_security_rule` instead."
+  }
 }
 
 variable "resource_group_id" {

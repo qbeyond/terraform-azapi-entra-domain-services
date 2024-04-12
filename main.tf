@@ -21,6 +21,34 @@ resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }
 
+resource "azurerm_network_security_rule" "AllowRD" {
+  name                        = "AllowRD"
+  priority                    = 201
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3389"
+  source_address_prefix       = "CorpNetSaw"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "AllowPSRemoting" {
+  name                        = "AllowPSRemoting"
+  priority                    = 301
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5986"
+  source_address_prefix       = "AzureActiveDirectoryDomainServices"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
 resource "azapi_resource" "eds" {
   type      = "Microsoft.AAD/domainServices@2022-12-01"
   name      = var.domain

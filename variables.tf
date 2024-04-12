@@ -7,6 +7,15 @@ variable "subnet" {
   description = "The variable takes the subnet as input and takes the id and the address prefix for further configuration."
 }
 
+variable "network_security_group" {
+  type = object({
+    name                = string
+    resource_group_name = string
+  })
+  nullable    = false
+  description = "The variable takes the network security group as input and takes the name and the resource group name for further configuration."
+}
+
 variable "resource_group_id" {
   type        = string
   nullable    = false

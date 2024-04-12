@@ -102,6 +102,10 @@ resource "azapi_resource" "eds" {
       syncScope = var.sync_scope
     }
   })
+  timeouts {
+    create = "60m"
+    delete = "60m"
+  }
 }
 
 

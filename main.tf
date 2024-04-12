@@ -4,7 +4,7 @@ resource "azuread_group" "aaddc_admins" {
 }
 
 resource "azuread_user" "aaddc_admin" {
-  user_principal_name = "fct_eds-admin@${var.domain}"
+  user_principal_name = "fct_black_eds@${var.domain}"
   display_name        = "Function EDS Admin"
   given_name          = "Function"
   surname             = "EDS Admin"

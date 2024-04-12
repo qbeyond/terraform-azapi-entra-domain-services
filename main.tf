@@ -4,8 +4,11 @@ resource "azuread_group" "aaddc_admins" {
 }
 
 resource "azuread_user" "aaddc_admin" {
-  user_principal_name = "fct_aadc_admin@${var.domain}"
-  display_name        = "DC Administrator"
+  user_principal_name = "fct_eds_admin@${var.domain}"
+  display_name        = "Function EDS Admin"
+  given_name          = "Function"
+  surname             = "EDS Admin"
+  job_title           = "Administrator of Entra Domain Services"
   password            = var.aaddc_admin_password
 }
 
@@ -26,24 +29,6 @@ resource "azapi_resource" "eds" {
   tags      = var.tags
   body = jsonencode({
     properties = {
-      configDiagnostics = {
-        lastExecuted = "string"
-        validatorResults = [
-          {
-            issues = [
-              {
-                descriptionParams = [
-                  "string"
-                ]
-                id = "string"
-              }
-            ]
-            replicaSetSubnetDisplayName = "string"
-            status                      = "string"
-            validatorId                 = "string"
-          }
-        ]
-      }
       domainConfigurationType = var.domain_configuration_type
       domainName              = var.domain
       domainSecuritySettings = {
@@ -58,10 +43,10 @@ resource "azapi_resource" "eds" {
         tlsV1                 = var.security_settings.tlsV1 ? "Enabled" : "Disabled"
       }
       filteredSync  = var.filtered_sync ? "Enabled" : "Disabled"
-      ldapsSettings = local.ldaps_settings # TODO: Will empty object work?
+      ldapsSettings = local.ldaps_settings
       notificationSettings = {
         additionalRecipients = var.notification_settings.additionalRecipients
-        notifyDcAdmins       = var.notification_settings.notifyDcAdmins ? "Enabled" : "Disabled"
+        notifyDcAdmins       = var.notification_settings.notifyAADDCAdmins ? "Enabled" : "Disabled"
         notifyGlobalAdmins   = var.notification_settings.notifyGlobalAdmins ? "Enabled" : "Disabled"
       }
       replicaSets = [
@@ -73,6 +58,5 @@ resource "azapi_resource" "eds" {
       sku       = var.sku
       syncScope = var.sync_scope
     }
-    etag = "string"
   })
 }

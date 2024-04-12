@@ -4,7 +4,7 @@
 
 ----
 
-Module to deploy entra domain services (former Azure Active Directory Domain Services) and needed resources
+Module to deploy entra domain services (former Azure Active Directory Domain Services). This module will create an entra domain services, a service principal 'Domain Services', a group AADC Administratos in Entra ID and an administrative account in that group.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage

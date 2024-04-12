@@ -85,40 +85,32 @@ variable "ldaps_settings" {
 variable "notification_settings" {
   type = object({
     additionalRecipients = optional(list(string), [])
-    notifyDcAdmins       = optional(bool, true)
+    notifyAADDCAdmins    = optional(bool, true)
     notifyGlobalAdmins   = optional(bool, true)
   })
-  description = "Choose who should get email alerts for issues affecting this managed domain."
+  description = <<-DOC
+  ```
+    Choose who should get email alerts for issues affecting this managed domain.
+    additionalRecipients: A list of email addresses of additional receipients.
+    notifyAADDCAdmins: Choose wether or not members of the Entra ID group AAD DC Administrators should be notified.
+    notifyGlobalAdmins: Choose wether or not accounts with Entra ID role 'global admin' should be notified.
+  ```
+  DOC
 }
-
-# variable "resource_forest_settings" {
-#   type = object({
-#     resourceForest = optional(string, "")
-#     settings = list(object({
-#       friendlyName      = string
-#       remoteDnsIps      = string
-#       trustDirection    = string
-#       trustedDomainFqdn = string
-#       trustPassword     = string
-#     }))
-#   })
-#   # TODO: Not the best description ...
-#   description = "A list of settings for Resource Forest"
-# }
 
 variable "location" {
   type        = string
-  description = "The location for the resource groups and resources"
+  description = "The location of the resources."
 }
 
 variable "domain" {
   type        = string
-  description = "The domain name for the Entra Domain Services"
+  description = "The domain name for the Entra Domain Services. Domain must either be the tenant's domain or a custom domain verified in EID"
 }
 
 variable "sku" {
   type        = string
-  description = "The SKU for the Entra Domain Services (Standard/Enterprise/Premium)"
+  description = "The SKU for the Entra Domain Services (Standard/Enterprise/Premium)."
 
   default = "Enterprise"
 
@@ -130,7 +122,7 @@ variable "sku" {
 
 variable "sync_scope" {
   type        = string
-  description = "All users in AAD are synced to AAD DS domain or only users actively syncing in the cloud"
+  description = "All users including synced users from on prem are synced into the AAD DS domain or only users originated in the cloud."
 
   default = "CloudOnly"
 
@@ -143,5 +135,5 @@ variable "sync_scope" {
 variable "aaddc_admin_password" {
   type        = string
   sensitive   = true
-  description = "The password assigned to the domain admin fct_aadc_admin@domain"
+  description = "The password assigned to the domain admin fct_aadc_admin@domain."
 }

@@ -1,10 +1,9 @@
 variable "subnet" {
   type = object({
-    id               = string
-    address_prefixes = list(string)
+    id = string
   })
   nullable    = false
-  description = "The variable takes the subnet as input and takes the id and the address prefix for further configuration."
+  description = "The subnet to deploy Entra DS to."
 }
 
 variable "network_security_group" {
@@ -48,7 +47,7 @@ variable "security_settings" {
     ldapSigning           = optional(bool, true)
     ntlmV1                = optional(bool, false)
     syncKerberosPasswords = optional(bool, true)
-    syncNtlmPasswords     = optional(bool, true)
+    syncNtlmPasswords     = optional(bool, false)
     syncOnPremPasswords   = optional(bool, true)
     tlsV1                 = optional(bool, false)
   })
@@ -77,15 +76,15 @@ variable "filtered_sync" {
 variable "ldaps_settings" {
   type = object({
     externalAccess         = optional(bool, false)
-    ldaps                  = bool
-    pfxCertificate         = optional(string, "")
-    pfxCertificatePassword = optional(string, "")
+    pfxCertificate         = string
+    pfxCertificatePassword = string
   })
+  sensitive   = true
   description = <<-DOC
+  Configure LDAPS. To disable LDAPS, set the configuration to `null`.
   ```
     externalAccess: A flag to determine whether or not Secure LDAP access over the internet is enabled or disabled.	
-    ldaps: A flag to determine whether or not Secure LDAP is enabled or disabled.
-    pfxCertificate: The certificate required to configure Secure LDAP. The parameter passed here should be a base64encoded representation of the certificate pfx file.
+    pfxCertificate: Base64encoded representation certificate required to configure Secure LDAP.
     pfxCertificatePassword: The password to decrypt the provided Secure LDAP certificate pfx file.
   ```
   DOC
@@ -99,8 +98,8 @@ variable "notification_settings" {
   })
   default     = {}
   description = <<-DOC
+Choose who should get email alerts for issues affecting this managed domain.
   ```
-    Choose who should get email alerts for issues affecting this managed domain.
     additionalRecipients: A list of email addresses of additional receipients.
     notifyAADDCAdmins: Choose wether or not members of the Entra ID group AAD DC Administrators should be notified.
     notifyGlobalAdmins: Choose wether or not accounts with Entra ID role 'global admin' should be notified.

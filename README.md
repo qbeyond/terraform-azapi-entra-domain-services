@@ -9,7 +9,6 @@ Module to deploy entra domain services (former Azure Active Directory Domain Ser
 <!-- BEGIN_TF_DOCS -->
 ## Usage
 
-It's very easy to use!
 ```hcl
 provider "azurerm" {
   features {}
@@ -90,6 +89,8 @@ module "entra_domain_services" {
   resource_group_id = azurerm_resource_group.aadds.id
 }
 ```
+
+More examples in examples folder!
 
 ## Requirements
 

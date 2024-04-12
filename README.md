@@ -40,29 +40,6 @@ resource "azurerm_network_security_group" "deploy" {
   name                = "deploy-nsg"
   location            = azurerm_resource_group.deploy.location
   resource_group_name = azurerm_resource_group.deploy.name
-  security_rule {
-    name                       = "AllowRD"
-    priority                   = 201
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "3389"
-    source_address_prefix      = "CorpNetSaw"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "AllowPSRemoting"
-    priority                   = 301
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "5986"
-    source_address_prefix      = "AzureActiveDirectoryDomainServices"
-    destination_address_prefix = "*"
-  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "deploy" {
@@ -107,6 +84,7 @@ More examples in examples folder!
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain name for the Entra Domain Services. Domain must either be the tenant's domain or a custom domain verified in EID | `string` | n/a | yes |
 | <a name="input_ldaps_settings"></a> [ldaps\_settings](#input\_ldaps\_settings) | <pre>externalAccess: A flag to determine whether or not Secure LDAP access over the internet is enabled or disabled.	<br>  ldaps: A flag to determine whether or not Secure LDAP is enabled or disabled.<br>  pfxCertificate: The certificate required to configure Secure LDAP. The parameter passed here should be a base64encoded representation of the certificate pfx file.<br>  pfxCertificatePassword: The password to decrypt the provided Secure LDAP certificate pfx file.</pre> | <pre>object({<br>    externalAccess         = optional(bool, false)<br>    ldaps                  = bool<br>    pfxCertificate         = optional(string, "")<br>    pfxCertificatePassword = optional(string, "")<br>  })</pre> | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | The location of the resources. | `string` | n/a | yes |
+| <a name="input_network_security_group"></a> [network\_security\_group](#input\_network\_security\_group) | The variable takes the network security group as input and takes the name and the resource group name for further configuration. | <pre>object({<br>    name                = string<br>    resource_group_name = string<br>  })</pre> | n/a | yes |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Id of the resource group where the resources will be created. | `string` | n/a | yes |
 | <a name="input_subnet"></a> [subnet](#input\_subnet) | The variable takes the subnet as input and takes the id and the address prefix for further configuration. | <pre>object({<br>    id               = string<br>    address_prefixes = list(string)<br>  })</pre> | n/a | yes |
 | <a name="input_domain_configuration_type"></a> [domain\_configuration\_type](#input\_domain\_configuration\_type) | The configuration type of this Active Directory Domain. | `string` | `"FullySynced"` | no |
@@ -129,6 +107,7 @@ No outputs.
         | [azuread_group_member](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group_member) | 1 |
         | [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | 1 |
         | [azuread_user](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) | 1 |
+        | [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | 2 |
 
       **`Used` only includes resource blocks.** `for_each` and `count` meta arguments, as well as resource blocks of modules are not considered.
     
@@ -147,6 +126,8 @@ No modules.
                   | [azuread_group_member.admin](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group_member) | resource |
                   | [azuread_service_principal.eds](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
                   | [azuread_user.aaddc_admin](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) | resource |
+                  | [azurerm_network_security_rule.AllowPSRemoting](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.AllowRD](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
     
 <!-- END_TF_DOCS -->
 

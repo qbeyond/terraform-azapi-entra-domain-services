@@ -23,34 +23,10 @@ resource "azurerm_subnet" "deploy" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-# The following network security rules are required for entra domain services to work.
 resource "azurerm_network_security_group" "deploy" {
   name                = "deploy-nsg"
   location            = azurerm_resource_group.deploy.location
   resource_group_name = azurerm_resource_group.deploy.name
-  security_rule {
-    name                       = "AllowRD"
-    priority                   = 201
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "3389"
-    source_address_prefix      = "CorpNetSaw"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "AllowPSRemoting"
-    priority                   = 301
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "5986"
-    source_address_prefix      = "AzureActiveDirectoryDomainServices"
-    destination_address_prefix = "*"
-  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "deploy" {
@@ -75,14 +51,13 @@ module "entra_domain_services" {
     notifyAADDCAdmins    = true
     notifyGlobalAdmins   = false
   }
-  ldaps_settings = {
-    ldaps = false
-  }
+  ldaps_settings = null
   security_settings = {
-    channelBinding        = optional(bool, false)
-    kerberosArmoring      = optional(bool, false)
-    kerberosRc4Encryption = optional(bool, true)
+    channelBinding        = false
+    kerberosArmoring      = false
+    kerberosRc4Encryption = true
   }
-  location          = "West Europe"
-  resource_group_id = azurerm_resource_group.aadds.id
+  location               = "West Europe"
+  resource_group_id      = azurerm_resource_group.aadds.id
+  network_security_group = azurerm_network_security_group.deploy
 }

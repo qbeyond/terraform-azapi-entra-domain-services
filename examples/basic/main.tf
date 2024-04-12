@@ -23,7 +23,6 @@ resource "azurerm_subnet" "deploy" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-# The following network security rules are required for entra domain services to work.
 resource "azurerm_network_security_group" "deploy" {
   name                = "deploy-nsg"
   location            = azurerm_resource_group.deploy.location
@@ -43,13 +42,12 @@ resource "azurerm_resource_group" "aadds" {
 module "entra_domain_services" {
   source = "../.."
 
-  domain                = "pcmsdevelopment02.onmicrosoft.com"
-  aaddc_admin_password  = "Azureistdoof!"
-  subnet                = azurerm_subnet.deploy
-  notification_settings = {}
-  ldaps_settings = {
-    ldaps = false
-  }
-  location          = "West Europe"
-  resource_group_id = azurerm_resource_group.aadds.id
+  domain                 = "example.onmicrosoft.com"
+  aaddc_admin_password   = "S3curePassword!"
+  subnet                 = azurerm_subnet.deploy
+  notification_settings  = {}
+  ldaps_settings         = null
+  location               = "West Europe"
+  resource_group_id      = azurerm_resource_group.aadds.id
+  network_security_group = azurerm_network_security_group.deploy
 }

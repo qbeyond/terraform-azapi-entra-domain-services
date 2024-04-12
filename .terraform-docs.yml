@@ -41,10 +41,11 @@ content: |-
 
   {{ indent 0 "#" }} Usage
 
-  It's very easy to use!
   ```hcl
   {{ include "examples/basic/main.tf" }}
   ```
+  
+  More examples in examples folder!
 
   {{ .Requirements }}
   {{ .Providers }}

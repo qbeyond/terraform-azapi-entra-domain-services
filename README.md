@@ -1,6 +1,6 @@
-# Module
-[![GitHub tag](https://img.shields.io/github/tag/qbeyond/terraform-azurerm-entra-domain-services.svg)](https://registry.terraform.io/modules/qbeyond/entra-domain-services/azurerm/latest)
-[![License](https://img.shields.io/github/license/qbeyond/terraform-azurerm-entra-domain-services.svg)](https://github.com/qbeyond/terraform-azurerm-entra-domain-services/blob/main/LICENSE)
+# Entra Domain Services
+[![GitHub tag](https://img.shields.io/github/tag/qbeyond/terraform-azapi-entra-domain-services.svg)](https://registry.terraform.io/modules/qbeyond/entra-domain-services/azapi/latest)
+[![License](https://img.shields.io/github/license/qbeyond/terraform-azapi-entra-domain-services.svg)](https://github.com/qbeyond/terraform-azapi-entra-domain-services/blob/main/LICENSE)
 
 ----
 

@@ -88,6 +88,7 @@ variable "notification_settings" {
     notifyAADDCAdmins    = optional(bool, true)
     notifyGlobalAdmins   = optional(bool, true)
   })
+  default     = {}
   description = <<-DOC
   ```
     Choose who should get email alerts for issues affecting this managed domain.

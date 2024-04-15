@@ -34,7 +34,7 @@ check "nsg_association" {
   }
 }
 
-// NSG for Microsoft Support access without it EDS complains
+// NSG for Microsoft Support access. Without it EDS complains.
 resource "azurerm_network_security_rule" "AllowRD" {
   name                        = "AllowRD"
   priority                    = 201

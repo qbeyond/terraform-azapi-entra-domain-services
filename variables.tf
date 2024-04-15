@@ -17,10 +17,6 @@ variable "network_security_group" {
   })
   nullable    = false
   description = "The nsg associated to the provided subnet. The nsg must not contain any rules defined inline in the nsg resource block."
-  validation {
-    condition     = length(var.network_security_group.security_rule) == 0
-    error_message = "This module deploys nsg rules. Therefore the provided NSG can't contain any `security_rule` blocks. Use `azurerm_network_security_rule` instead."
-  }
 }
 
 variable "resource_group_id" {

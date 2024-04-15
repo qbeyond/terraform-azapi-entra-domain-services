@@ -42,11 +42,21 @@ resource "azurerm_resource_group" "aadds" {
 module "entra_domain_services" {
   source = "../.."
 
-  domain                 = "example.onmicrosoft.com"
-  aaddc_admin_password   = "S3curePassword!"
-  subnet                 = azurerm_subnet.deploy
-  notification_settings  = {}
-  ldaps_settings         = null
+  # Note: domain must either be the tenant's domain or a custom domain registered and verified in EID
+  domain               = "example.onmicrosoft.com"
+  aaddc_admin_password = "S3curePassword!"
+  subnet               = azurerm_subnet.deploy
+  notification_settings = {
+    additionalRecipients = ["example1@example.de", "example2@example.de"]
+    notifyAADDCAdmins    = true
+    notifyGlobalAdmins   = false
+  }
+  ldaps_settings = null
+  security_settings = {
+    channelBinding        = false
+    kerberosArmoring      = false
+    kerberosRc4Encryption = true
+  }
   location               = "West Europe"
   resource_group_id      = azurerm_resource_group.aadds.id
   network_security_group = azurerm_network_security_group.deploy

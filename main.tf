@@ -162,7 +162,7 @@ resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
   network_security_group_name = var.network_security_group.name
 }
 
-resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
+resource "azurerm_network_security_rule" "deny_all_outbound" {
   name                        = "Deny_all_Outbound"
   priority                    = 1000
   direction                   = "Outbound"

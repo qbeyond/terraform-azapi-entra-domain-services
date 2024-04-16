@@ -1,6 +1,6 @@
 locals {
   ldaps_settings_disabled = {
-    ldaps = false
+    ldaps = "Disabled"
   }
   ldaps_settings = var.ldaps_settings == null ? local.ldaps_settings_disabled : {
     externalAccess         = var.ldaps_settings.externalAccess ? "Enabled" : "Disabled"

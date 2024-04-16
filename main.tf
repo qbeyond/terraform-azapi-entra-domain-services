@@ -34,7 +34,7 @@ check "nsg_association" {
   }
 }
 
-// NSG for Microsoft Support access. Without it EDS complains.
+// Inbound NSG rules for Microsoft Support access. Without it EDS does not work.
 resource "azurerm_network_security_rule" "AllowRD" {
   name                        = "AllowRD"
   priority                    = 201
@@ -49,7 +49,6 @@ resource "azurerm_network_security_rule" "AllowRD" {
   network_security_group_name = var.network_security_group.name
 }
 
-// NSG for Microsoft Support access. Without it EDS complains.
 resource "azurerm_network_security_rule" "AllowPSRemoting" {
   name                        = "AllowPSRemoting"
   priority                    = 301
@@ -59,6 +58,119 @@ resource "azurerm_network_security_rule" "AllowPSRemoting" {
   source_port_range           = "*"
   destination_port_range      = "5986"
   source_address_prefix       = "AzureActiveDirectoryDomainServices"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+// Outbound rules NSG for Microsoft Support access. Without it EDS does not work.
+resource "azurerm_network_security_rule" "AzureActiveDirectoryDomainServices" {
+  name                        = "Allow_Subnet_to_AzureActiveDirectoryDomainServices_HTTPS_Outbound"
+  priority                    = 100
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "AzureActiveDirectoryDomainServices"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "AzureMonitor" {
+  name                        = "Allow_Subnet_to_AzureMonitor_HTTPS_Outbound"
+  priority                    = 110
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "AzureMonitor"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "Storage" {
+  name                        = "Allow_Subnet_to_Storage_HTTPS_Outbound"
+  priority                    = 120
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "Storage"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "MicrosoftEntraID" {
+  name                        = "Allow_Subnet_to_MicrosoftEntraID_HTTPS_Outbound"
+  priority                    = 130
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "AzureActiveDirectory"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "AzureUpdateDelivery" {
+  name                        = "Allow_Subnet_to_AzureUpdateDelivery_HTTPS_Outbound"
+  priority                    = 140
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "AzureUpdateDelivery"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "AzureFrontDoorFirstParty" {
+  name                        = "Allow_Subnet_to_AzureFrontDoorFirstParty_HTTPS_Outbound"
+  priority                    = 150
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "AzureFrontDoor.FirstParty"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
+  name                        = "Allow_Subnet_to_GuestAndHybridManagement_HTTPS_Outbound"
+  priority                    = 160
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "GuestAndHybridManagement"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
+  name                        = "Deny_all_Outbound"
+  priority                    = 1000
+  direction                   = "Outbound"
+  access                      = "Deny"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = var.network_security_group.resource_group_name
   network_security_group_name = var.network_security_group.name

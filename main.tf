@@ -65,7 +65,7 @@ resource "azurerm_network_security_rule" "AllowPSRemoting" {
 
 // Outbound rules NSG for Microsoft Support access. Without it EDS does not work.
 resource "azurerm_network_security_rule" "AzureActiveDirectoryDomainServices" {
-  name                        = "Allow_Subnet_to_AzureActiveDirectoryDomainServices_HTTPS_Outbound"
+  name                        = "Allow_Any_to_AzureActiveDirectoryDomainServices_HTTPS_Outbound"
   priority                    = 100
   direction                   = "Outbound"
   access                      = "Allow"
@@ -79,7 +79,7 @@ resource "azurerm_network_security_rule" "AzureActiveDirectoryDomainServices" {
 }
 
 resource "azurerm_network_security_rule" "AzureMonitor" {
-  name                        = "Allow_Subnet_to_AzureMonitor_HTTPS_Outbound"
+  name                        = "Allow_Any_to_AzureMonitor_HTTPS_Outbound"
   priority                    = 110
   direction                   = "Outbound"
   access                      = "Allow"
@@ -93,7 +93,7 @@ resource "azurerm_network_security_rule" "AzureMonitor" {
 }
 
 resource "azurerm_network_security_rule" "Storage" {
-  name                        = "Allow_Subnet_to_Storage_HTTPS_Outbound"
+  name                        = "Allow_Any_to_Storage_HTTPS_Outbound"
   priority                    = 120
   direction                   = "Outbound"
   access                      = "Allow"
@@ -107,7 +107,7 @@ resource "azurerm_network_security_rule" "Storage" {
 }
 
 resource "azurerm_network_security_rule" "MicrosoftEntraID" {
-  name                        = "Allow_Subnet_to_MicrosoftEntraID_HTTPS_Outbound"
+  name                        = "Allow_Any_to_MicrosoftEntraID_HTTPS_Outbound"
   priority                    = 130
   direction                   = "Outbound"
   access                      = "Allow"
@@ -121,7 +121,7 @@ resource "azurerm_network_security_rule" "MicrosoftEntraID" {
 }
 
 resource "azurerm_network_security_rule" "AzureUpdateDelivery" {
-  name                        = "Allow_Subnet_to_AzureUpdateDelivery_HTTPS_Outbound"
+  name                        = "Allow_Any_to_AzureUpdateDelivery_HTTPS_Outbound"
   priority                    = 140
   direction                   = "Outbound"
   access                      = "Allow"
@@ -135,7 +135,7 @@ resource "azurerm_network_security_rule" "AzureUpdateDelivery" {
 }
 
 resource "azurerm_network_security_rule" "AzureFrontDoorFirstParty" {
-  name                        = "Allow_Subnet_to_AzureFrontDoorFirstParty_HTTPS_Outbound"
+  name                        = "Allow_Any_to_AzureFrontDoorFirstParty_HTTPS_Outbound"
   priority                    = 150
   direction                   = "Outbound"
   access                      = "Allow"
@@ -149,7 +149,7 @@ resource "azurerm_network_security_rule" "AzureFrontDoorFirstParty" {
 }
 
 resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
-  name                        = "Allow_Subnet_to_GuestAndHybridManagement_HTTPS_Outbound"
+  name                        = "Allow_Any_to_GuestAndHybridManagement_HTTPS_Outbound"
   priority                    = 160
   direction                   = "Outbound"
   access                      = "Allow"
@@ -163,7 +163,7 @@ resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
 }
 
 resource "azurerm_network_security_rule" "deny_all_outbound" {
-  name                        = "Deny_all_Outbound"
+  name                        = "Deny_All_Outbound"
   priority                    = 1000
   direction                   = "Outbound"
   access                      = "Deny"

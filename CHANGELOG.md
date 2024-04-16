@@ -14,6 +14,13 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
  
 ### Fixed
 
+## [1.1.0] - 2024-01-16
+
+### Added
+ 
+- Added required outbound nsg rules for entra domain services
+- Added deny all outbound nsg rule
+
 ## [1.0.1] - 2024-01-16
  
 ### Fixed

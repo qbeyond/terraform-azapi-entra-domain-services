@@ -107,7 +107,7 @@ No outputs.
         | [azuread_group_member](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group_member) | 1 |
         | [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | 1 |
         | [azuread_user](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) | 1 |
-        | [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | 2 |
+        | [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | 10 |
 
       **`Used` only includes resource blocks.** `for_each` and `count` meta arguments, as well as resource blocks of modules are not considered.
     
@@ -128,6 +128,14 @@ No modules.
                   | [azuread_user.aaddc_admin](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) | resource |
                   | [azurerm_network_security_rule.AllowPSRemoting](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
                   | [azurerm_network_security_rule.AllowRD](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.AzureActiveDirectoryDomainServices](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.AzureFrontDoorFirstParty](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.AzureMonitor](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.AzureUpdateDelivery](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.GuestAndHybridManagement](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.MicrosoftEntraID](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.Storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.deny_all_outbound](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
     
 <!-- END_TF_DOCS -->
 

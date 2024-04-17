@@ -80,7 +80,6 @@ More examples in examples folder!
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aaddc_admin_password"></a> [aaddc\_admin\_password](#input\_aaddc\_admin\_password) | The password assigned to the domain admin fct\_aadc\_admin@domain. | `string` | n/a | yes |
 | <a name="input_domain"></a> [domain](#input\_domain) | The domain name for the Entra Domain Services. Domain must either be the tenant's domain or a custom domain verified in EID | `string` | n/a | yes |
 | <a name="input_ldaps_settings"></a> [ldaps\_settings](#input\_ldaps\_settings) | Configure LDAPS. To disable LDAPS, set the configuration to `null`.<pre>externalAccess: A flag to determine whether or not Secure LDAP access over the internet is enabled or disabled.	<br>  pfxCertificate: Base64encoded representation certificate required to configure Secure LDAP.<br>  pfxCertificatePassword: The password to decrypt the provided Secure LDAP certificate pfx file.</pre> | <pre>object({<br>    externalAccess         = optional(bool, false)<br>    pfxCertificate         = string<br>    pfxCertificatePassword = string<br>  })</pre> | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | The location of the resources. | `string` | n/a | yes |

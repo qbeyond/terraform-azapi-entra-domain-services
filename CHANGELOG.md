@@ -14,6 +14,12 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
  
 ### Fixed
 
+## [2.0.1] - 2024-01-15
+
+### Removed
+ 
+- Removed unused required var
+
 ## [2.0.0] - 2024-01-15
 
 ### Removed

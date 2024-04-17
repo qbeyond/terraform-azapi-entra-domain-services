@@ -3,15 +3,6 @@ resource "azuread_group" "aaddc_admins" {
   security_enabled = true
 }
 
-resource "azuread_user" "aaddc_admin" {
-  user_principal_name = "fct_black_eds@${var.domain}"
-  display_name        = "Function EDS Admin"
-  given_name          = "Function"
-  surname             = "EDS Admin"
-  job_title           = "Administrator of Entra Domain Services"
-  password            = var.aaddc_admin_password
-}
-
 resource "azuread_group_member" "admin" {
   group_object_id  = azuread_group.aaddc_admins.object_id
   member_object_id = azuread_user.aaddc_admin.object_id

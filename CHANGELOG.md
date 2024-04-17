@@ -16,7 +16,7 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ## [1.2.0] - 2024-01-16
 
-### Added
+### Removed
  
 - Removed user creation from module
 

@@ -43,9 +43,8 @@ module "entra_domain_services" {
   source = "../.."
 
   # Note: domain must either be the tenant's domain or a custom domain registered and verified in EID
-  domain               = "example.onmicrosoft.com"
-  aaddc_admin_password = "S3curePassword!"
-  subnet               = azurerm_subnet.deploy
+  domain = "example.onmicrosoft.com"
+  subnet = azurerm_subnet.deploy
   notification_settings = {
     additionalRecipients = ["example1@example.de", "example2@example.de"]
     notifyAADDCAdmins    = true

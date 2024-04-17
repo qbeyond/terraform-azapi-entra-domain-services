@@ -144,9 +144,3 @@ variable "sync_scope" {
     error_message = "Possible values for the sync scope are All and CloudOnly."
   }
 }
-
-variable "aaddc_admin_password" {
-  type        = string
-  sensitive   = true
-  description = "The password assigned to the domain admin fct_aadc_admin@domain."
-}

@@ -43,7 +43,6 @@ module "entra_domain_services" {
   source = "../.."
 
   domain                 = "example.onmicrosoft.com"
-  aaddc_admin_password   = "S3curePassword!"
   subnet                 = azurerm_subnet.deploy
   notification_settings  = {}
   ldaps_settings         = null

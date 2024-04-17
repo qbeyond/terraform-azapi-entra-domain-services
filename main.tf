@@ -3,11 +3,6 @@ resource "azuread_group" "aaddc_admins" {
   security_enabled = true
 }
 
-resource "azuread_group_member" "admin" {
-  group_object_id  = azuread_group.aaddc_admins.object_id
-  member_object_id = azuread_user.aaddc_admin.object_id
-}
-
 resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }

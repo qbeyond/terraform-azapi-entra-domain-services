@@ -4,7 +4,7 @@
 
 ----
 
-Module to deploy entra domain services (former Azure Active Directory Domain Services). This module will create an entra domain services, a service principal 'Domain Services', a group AADC Administratos in Entra ID and an administrative account in that group.
+Module to deploy entra domain services (former Azure Active Directory Domain Services). This module will create an entra domain services, a service principal 'Domain Services'and a group AADC Administratos in Entra ID.
 
 <!-- BEGIN_TF_DOCS -->
 ## Usage
@@ -104,9 +104,7 @@ No outputs.
       |------|-------|
         | [azapi_resource](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) | 1 |
         | [azuread_group](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group) | 1 |
-        | [azuread_group_member](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group_member) | 1 |
         | [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | 1 |
-        | [azuread_user](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) | 1 |
         | [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | 10 |
 
       **`Used` only includes resource blocks.** `for_each` and `count` meta arguments, as well as resource blocks of modules are not considered.
@@ -123,9 +121,7 @@ No modules.
             |------|------|
                   | [azapi_resource.eds](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) | resource |
                   | [azuread_group.aaddc_admins](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group) | resource |
-                  | [azuread_group_member.admin](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group_member) | resource |
                   | [azuread_service_principal.eds](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
-                  | [azuread_user.aaddc_admin](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/user) | resource |
                   | [azurerm_network_security_rule.AllowPSRemoting](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
                   | [azurerm_network_security_rule.AllowRD](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
                   | [azurerm_network_security_rule.AzureActiveDirectoryDomainServices](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |

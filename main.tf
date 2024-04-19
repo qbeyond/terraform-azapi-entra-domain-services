@@ -1,8 +1,3 @@
-resource "azuread_group" "aaddc_admins" {
-  display_name     = "AAD DC Administrators"
-  security_enabled = true
-}
-
 resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }
@@ -144,6 +139,20 @@ resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
   destination_port_range      = "443"
   source_address_prefix       = "*"
   destination_address_prefix  = "GuestAndHybridManagement"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "allow_subnet_to_subnet_outbound" {
+  name                        = "Allow_Subnet_to_Subnet_Any_Outbound"
+  priority                    = 170
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = one(var.subnet.address_prefixes)
+  destination_address_prefix  = one(var.subnet.address_prefixes)
   resource_group_name         = var.network_security_group.resource_group_name
   network_security_group_name = var.network_security_group.name
 }

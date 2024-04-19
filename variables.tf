@@ -1,9 +1,10 @@
 variable "subnet" {
   type = object({
-    id = string
+    id               = string
+    address_prefixes = list(string)
   })
   nullable    = false
-  description = "The subnet to deploy Entra DS to."
+  description = "The variable takes the subnet as input and takes the id and the address prefix for further configuration."
 }
 
 variable "network_security_group" {

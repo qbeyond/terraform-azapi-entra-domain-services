@@ -7,6 +7,11 @@ resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }
 
+resource "azuread_app_role_assignment" "eds" {
+  app_role_id         = "e7bdf2ef-aa80-4a18-9801-0aa9e01feb8c" //id of app role 'user'
+  principal_object_id = azuread_group.aaddc_admins.object_id
+  resource_object_id  = azuread_service_principal.eds.object_id
+}
 check "nsg_association" {
   data "azurerm_subnet" "eds" {
     name                 = split("/", var.subnet.id)[10]
@@ -144,6 +149,20 @@ resource "azurerm_network_security_rule" "GuestAndHybridManagement" {
   destination_port_range      = "443"
   source_address_prefix       = "*"
   destination_address_prefix  = "GuestAndHybridManagement"
+  resource_group_name         = var.network_security_group.resource_group_name
+  network_security_group_name = var.network_security_group.name
+}
+
+resource "azurerm_network_security_rule" "allow_subnet_to_subnet_outbound" {
+  name                        = "Allow_Subnet_to_Subnet_Any_Outbound"
+  priority                    = 170
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = one(var.subnet.address_prefixes)
+  destination_address_prefix  = one(var.subnet.address_prefixes)
   resource_group_name         = var.network_security_group.resource_group_name
   network_security_group_name = var.network_security_group.name
 }

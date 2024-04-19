@@ -84,7 +84,7 @@ More examples in examples folder!
 | <a name="input_location"></a> [location](#input\_location) | The location of the resources. | `string` | n/a | yes |
 | <a name="input_network_security_group"></a> [network\_security\_group](#input\_network\_security\_group) | The nsg associated to the provided subnet. The nsg must not contain any rules defined inline in the nsg resource block. | <pre>object({<br>    id                  = string<br>    name                = string<br>    resource_group_name = string<br>    security_rule = optional(list(object({<br>      name = string<br>    })), [])<br>  })</pre> | n/a | yes |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Id of the resource group where the resources will be created. | `string` | n/a | yes |
-| <a name="input_subnet"></a> [subnet](#input\_subnet) | The subnet to deploy Entra DS to. | <pre>object({<br>    id = string<br>  })</pre> | n/a | yes |
+| <a name="input_subnet"></a> [subnet](#input\_subnet) | The variable takes the subnet as input and takes the id and the address prefix for further configuration. | <pre>object({<br>    id               = string<br>    address_prefixes = list(string)<br>  })</pre> | n/a | yes |
 | <a name="input_domain_configuration_type"></a> [domain\_configuration\_type](#input\_domain\_configuration\_type) | The configuration type of this Active Directory Domain. | `string` | `"FullySynced"` | no |
 | <a name="input_filtered_sync"></a> [filtered\_sync](#input\_filtered\_sync) | Enabled or Disabled flag to turn on Group-based filtered sync | `bool` | `true` | no |
 | <a name="input_notification_settings"></a> [notification\_settings](#input\_notification\_settings) | Choose who should get email alerts for issues affecting this managed domain.<pre>additionalRecipients: A list of email addresses of additional receipients.<br>    notifyAADDCAdmins: Choose wether or not members of the Entra ID group AAD DC Administrators should be notified.<br>    notifyGlobalAdmins: Choose wether or not accounts with Entra ID role 'global admin' should be notified.</pre> | <pre>object({<br>    additionalRecipients = optional(list(string), [])<br>    notifyAADDCAdmins    = optional(bool, true)<br>    notifyGlobalAdmins   = optional(bool, true)<br>  })</pre> | `{}` | no |
@@ -101,9 +101,10 @@ No outputs.
       | Type | Used |
       |------|-------|
         | [azapi_resource](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) | 1 |
+        | [azuread_app_role_assignment](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment) | 1 |
         | [azuread_group](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group) | 1 |
         | [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | 1 |
-        | [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | 10 |
+        | [azurerm_network_security_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | 11 |
 
       **`Used` only includes resource blocks.** `for_each` and `count` meta arguments, as well as resource blocks of modules are not considered.
     
@@ -118,6 +119,7 @@ No modules.
             | Name | Type |
             |------|------|
                   | [azapi_resource.eds](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/resource) | resource |
+                  | [azuread_app_role_assignment.eds](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/app_role_assignment) | resource |
                   | [azuread_group.aaddc_admins](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/group) | resource |
                   | [azuread_service_principal.eds](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
                   | [azurerm_network_security_rule.AllowPSRemoting](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
@@ -129,6 +131,7 @@ No modules.
                   | [azurerm_network_security_rule.GuestAndHybridManagement](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
                   | [azurerm_network_security_rule.MicrosoftEntraID](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
                   | [azurerm_network_security_rule.Storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
+                  | [azurerm_network_security_rule.allow_subnet_to_subnet_outbound](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
                   | [azurerm_network_security_rule.deny_all_outbound](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
     
 <!-- END_TF_DOCS -->

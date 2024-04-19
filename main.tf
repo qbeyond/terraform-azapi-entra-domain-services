@@ -7,6 +7,11 @@ resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }
 
+resource "azuread_app_role_assignment" "example" {
+  app_role_id         = "e7bdf2ef-aa80-4a18-9801-0aa9e01feb8c" //id of app role 'user'
+  principal_object_id = azuread_group.aaddc_admins.object_id
+  resource_object_id  = azuread_service_principal.eds.object_id
+}
 check "nsg_association" {
   data "azurerm_subnet" "eds" {
     name                 = split("/", var.subnet.id)[10]

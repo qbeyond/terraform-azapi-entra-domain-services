@@ -1,3 +1,8 @@
+resource "azuread_group" "aaddc_admins" {
+  display_name     = "AAD DC Administrators"
+  security_enabled = true
+}
+
 resource "azuread_service_principal" "eds" {
   client_id = "2565bd9d-da50-47d4-8b85-4c97f669dc36" // published app for domain services
 }

@@ -252,7 +252,7 @@ check "edc_security_configuration" {
     error_message = "TLSv1 is old and should be disabled."
   }
   assert {
-    condition     = local.ldaps_settings.ldaps == "enabled"
+    condition     = local.ldaps_settings.ldaps == "Enabled"
     error_message = "LDAPS should be enabled."
   }
 }

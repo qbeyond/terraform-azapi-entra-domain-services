@@ -14,6 +14,13 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
  
 ### Fixed
 
+## [2.0.3] - YYYY-MM-DD
+ 
+### Fixed
+
+- Check for LDAPS always fails
+  - enablement by checking if `Enabled` instead of `enabled`
+
 ## [2.0.2] - 2024-01-19
 
 ### Added
